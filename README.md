@@ -99,6 +99,40 @@ python skills/v2ex_mcp.py --stdio
 
 如果你是将这个项目作为 OpenClaw 的自定义 skill 使用，推荐直接保留当前仓库结构，并让 OpenClaw 调用 `skills/` 目录中的入口脚本或说明文件。
 
+最简单的接入方式就是：**把当前项目中的这些 skill 文件直接拷贝到 OpenClaw 工作空间的 `skills/` 目录下**。通常不需要改动项目代码，只需要补充你自己的 API Key 配置即可开始使用。
+
+### 目录放置方式
+
+假设你的 OpenClaw 工作空间结构类似：
+
+```text
+openclaw-workspace/
+└─ skills/
+   └─ v2ex_monitor/
+      ├─ skill.md
+      ├─ run_skill.py
+      ├─ v2ex_mcp.py
+      ├─ v2ex_monitor.py
+      ├─ v2ex_monitor_config.example.json
+      └─ requirements.txt
+```
+
+你可以直接把当前仓库里的 `skills/` 目录内容复制进去，或者把整个仓库作为一个 skill 资源目录挂进去。对 OpenClaw 来说，关键是它能够读取说明文件并调用入口脚本。
+
+### 最低操作步骤
+
+在 OpenClaw 中通常只需要做这几步：
+
+1. 把本项目相关文件复制到 OpenClaw 工作空间的 `skills/` 目录
+2. 安装依赖：`pip install -r skills/requirements.txt`
+3. 把 `YOUR_V2EX_API_KEY` 替换成你自己的 API Key
+4. 让 OpenClaw 执行：
+   - `python skills/run_skill.py config ...`
+   - `python skills/run_skill.py run`
+   - `python skills/run_skill.py report`
+
+也就是说，**对于 OpenClaw 集成场景，核心思路就是“复制到 `skills/` 目录 + 修改 API Key + 直接调用现有脚本”**。
+
 ### 方式一：作为普通 Skill 使用
 
 OpenClaw 可优先读取以下文件：
