@@ -147,6 +147,47 @@ python skills/v2ex_mcp.py --stdio
 - 若需要让 Agent 稳定调用，优先使用 `python skills/run_skill.py run`
 - 若需要结构化工具调用，再使用 MCP 模式
 
+### 可直接给 OpenClaw 的提示词模板
+
+如果你希望在 OpenClaw 中尽量减少手动操作，可以直接给它下面这段提示词。通常你只需要把其中的 `YOUR_V2EX_API_KEY` 改成你自己的 API Key，OpenClaw 就可以按步骤自动安装依赖、写入本地配置并开始使用。
+
+```text
+请把当前仓库作为一个可运行的 V2EX 监控 skill 来配置并使用：
+
+1. 先安装依赖：
+   pip install -r skills/requirements.txt
+
+2. 使用下面参数完成配置：
+   APIKEY=YOUR_V2EX_API_KEY
+   NODES=python,linux,programmer
+
+3. 执行命令：
+   python skills/run_skill.py config --nodes python,linux,programmer --apikey YOUR_V2EX_API_KEY
+
+4. 然后运行一次监控：
+   python skills/run_skill.py run
+
+5. 最后输出报告内容：
+   python skills/run_skill.py report
+
+要求：
+- 如果缺少依赖就自动安装
+- 不要把 API Key 提交到 git
+- 优先复用仓库内现有脚本，不要重新实现功能
+```
+
+如果你想让 OpenClaw 通过 MCP 方式接入，也可以使用下面这个简化提示词：
+
+```text
+请将当前仓库作为 OpenClaw 的 MCP skill 使用。
+
+- 安装依赖：pip install -r skills/requirements.txt
+- 使用 APIKEY=YOUR_V2EX_API_KEY 完成本地配置
+- 启动 MCP 服务：python skills/v2ex_mcp.py --stdio
+- 不要修改仓库源码；若只缺配置文件则自动从 example 生成
+- 不要把真实 API Key 写回 git 跟踪文件
+```
+
 ## 输出文件
 
 - `skills/v2ex_hourly_report.md`：监控报告
