@@ -1,0 +1,19 @@
+.venv/
+.claude/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Local environment / IDE
+.env
+.env.*
+.vscode/
+
+# Runtime data / secrets
+skills/v2ex_monitor_config.json
+skills/v2ex_monitor_data/
+
+# OS files
+Thumbs.db
+.DS_Store
