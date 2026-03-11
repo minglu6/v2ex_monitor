@@ -15,7 +15,7 @@
 
 ```text
 skills/
-├─ skill.md                    # Skill 说明文档
+├─ SKILL.md                    # Skill 说明文档
 ├─ run_skill.py                # 推荐给 Agent 调用的统一入口
 ├─ v2ex_monitor.py             # 核心监控逻辑
 ├─ v2ex_mcp.py                 # MCP 服务入口
