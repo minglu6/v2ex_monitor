@@ -95,6 +95,58 @@ python skills/v2ex_mcp.py --stdio
 - 获取个人信息
 - 执行监控与配置
 
+## 在 OpenClaw 中使用
+
+如果你是将这个项目作为 OpenClaw 的自定义 skill 使用，推荐直接保留当前仓库结构，并让 OpenClaw 调用 `skills/` 目录中的入口脚本或说明文件。
+
+### 方式一：作为普通 Skill 使用
+
+OpenClaw 可优先读取以下文件：
+
+- `skills/skill.md`：Skill 总说明
+- `skills/run_skill.py`：统一命令入口
+
+典型调用方式：
+
+```bash
+python skills/run_skill.py config --nodes python,linux,programmer --apikey <你的_api_key>
+python skills/run_skill.py run
+python skills/run_skill.py report
+```
+
+适合以下场景：
+
+- 让 Agent 帮你完成首次配置
+- 手动触发一次监控
+- 读取最近一次 Markdown 报告
+
+### 方式二：作为 MCP Skill 使用
+
+如果你的 OpenClaw 环境支持 MCP，可直接启动：
+
+```bash
+python skills/v2ex_mcp.py --stdio
+```
+
+启动后，OpenClaw / Agent 可通过 MCP 调用 V2EX 相关能力，例如：
+
+- `v2ex_get_node_topics`
+- `v2ex_get_topic`
+- `v2ex_get_topic_replies`
+- `v2ex_get_notifications`
+- `v2ex_get_my_info`
+- `v2ex_get_node_info`
+- `v2ex_monitor_topics`
+- `v2ex_config`
+
+### OpenClaw 使用建议
+
+- 初次使用时，先配置 `skills/v2ex_monitor_config.json`
+- 不要把真实 API Key 写入仓库已跟踪文件
+- 建议把 `skills/` 整体作为 skill 资源目录
+- 若需要让 Agent 稳定调用，优先使用 `python skills/run_skill.py run`
+- 若需要结构化工具调用，再使用 MCP 模式
+
 ## 输出文件
 
 - `skills/v2ex_hourly_report.md`：监控报告
